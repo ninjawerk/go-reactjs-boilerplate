@@ -6,7 +6,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/BeastSanchez/GoBoiler/routes"
+	"github.com/BeastSanchez/go-reactjs-boilerplate/routes"
 )
 
 var DB = make(map[string]string)

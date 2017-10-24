@@ -6,7 +6,7 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/BeastSanchez/GoBoiler/controllers"
+	"github.com/BeastSanchez/go-reactjs-boilerplate/controllers"
 )
 
 func RegisterPublicRoutes(r *gin.Engine){
