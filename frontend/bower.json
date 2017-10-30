@@ -1,0 +1,22 @@
+{
+  "name": "react-boilerplate",
+  "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
+  "main": "",
+  "authors": [
+    "BeastSanchez"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/BeastSanchez/go-reactjs-boilerplate",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.6",
+    "font-awesome": "fontawesome#^4.7.0"
+  }
+}

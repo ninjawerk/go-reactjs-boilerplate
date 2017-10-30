@@ -3,6 +3,9 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
+
+const express = require('express');
+
 function createWebpackMiddleware(compiler, publicPath) {
   return webpackDevMiddleware(compiler, {
     noInfo: true,
@@ -15,6 +18,7 @@ function createWebpackMiddleware(compiler, publicPath) {
 module.exports = function addDevMiddlewares(app, webpackConfig) {
   const compiler = webpack(webpackConfig);
   const middleware = createWebpackMiddleware(compiler, webpackConfig.output.publicPath);
+  app.use('/public', express.static(path.join(__dirname,'..') + '/../public'))
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
