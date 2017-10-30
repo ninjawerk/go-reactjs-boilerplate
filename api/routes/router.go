@@ -6,7 +6,7 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/BeastSanchez/go-reactjs-boilerplate/middlewares"
+	"github.com/BeastSanchez/go-reactjs-boilerplate/api/middlewares"
 )
 
 const (

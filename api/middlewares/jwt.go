@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/dgrijalva/jwt-go"
 	"time"
-	"github.com/BeastSanchez/go-reactjs-boilerplate/routes"
+	"github.com/BeastSanchez/go-reactjs-boilerplate/api/routes"
 )
 
 var (
