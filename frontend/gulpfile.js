@@ -13,18 +13,18 @@ var config = {
   bowerDir: './bower_components'
 }
 
-gulp.task('bower', function() {
+gulp.task('bower', function () {
   return bower()
     .pipe(gulp.dest(config.bowerDir))
 });
 
-gulp.task('icons', function() {
+gulp.task('icons', function () {
   return gulp.src(config.bowerDir + '/font-awesome/fonts/**.*')
     .pipe(gulp.dest('./public/fonts/'));
 });
 
 //js will be bundled according to priority, bundle order is as follows
-gulp.task('scripts', function() {
+gulp.task('scripts', function () {
   return gulp.src(
     [
       config.bowerDir + '/jquery/dist/**/*.min.js',
@@ -37,7 +37,11 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('css', () => {
-  return gulp.src(config.bowerDir + '/**/*.css')
+  return gulp.src(
+    [
+      config.bowerDir + '/**/*.css',
+      './app/styles/**/*.css'
+    ])
     .pipe(concatCss("bundle.css"))
     .pipe(gulp.dest('./public/css/'));
 });
@@ -52,4 +56,4 @@ gulp.task('inject', function () {
 });
 
 
-gulp.task('default', ['bower', 'icons','scripts', 'css', 'inject']);
+gulp.task('default', ['bower', 'icons', 'scripts', 'css', 'inject']);
