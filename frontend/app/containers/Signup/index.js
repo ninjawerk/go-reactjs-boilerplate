@@ -11,23 +11,19 @@ import {createStructuredSelector} from 'reselect';
 import {compose} from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectSignup from './selectors';
+import  {selectSignup, selectSignupDomain} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import {Component} from "react/lib/ReactBaseClasses";
 import SignupForm from "../../components/SignupForm";
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import signupRequest from './actions'
 
 class Signup extends Component {
-  submit = (values) => {
-    // we could just do signupRequest here with the static proptypes
-    // but ESLint doesn't like that very much...
-    this.props.signupRequest(values)
 
-  }
 
   render() {
+    console.log(this.props.signup)
     const {
       handleSubmit,
       signup: {
@@ -39,23 +35,10 @@ class Signup extends Component {
     } = this.props
     return (
       <div>
-        <SignupForm onSubmit={this.submit}/>
+        <SignupForm formSubmit={handleSubmit}/>
         <div className="auth-messages">
-          {!requesting && !!errors.length && (
-            <Errors message="Failure to signup due to:" errors={errors} />
-          )}
-          {!requesting && !!messages.length && (
-            <Messages messages={messages} />
-          )}
-          {!requesting && successful && (
-            <div>
-              Signup Successful! <Link to="/login">Click here to Login »</Link>
-            </div>
-          )}
-          {/* Redux Router's <Link> component for quick navigation of routes */}
-          {!requesting && !successful && (
-            <Link to="/login">Already a Widgeter? Login Here »</Link>
-          )}
+           <p>errors: {errors.length}</p>
+          <p>messages: {messages.length}</p>
         </div>
       </div>
     );
@@ -74,14 +57,20 @@ Signup.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  signup: makeSelectSignup(),
-});
+   signup: selectSignup(),
+})
 
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
-    signupRequest
+    signupRequest,
+    handleSubmit: (evt) => {
+      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+      dispatch(signupRequest({
+        email:evt.get('email'),
+        password: evt.get('password')
+      }));
+    },
   };
 }
 

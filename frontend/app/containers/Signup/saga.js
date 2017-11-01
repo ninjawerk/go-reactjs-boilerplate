@@ -44,17 +44,7 @@ const signupUrl = `chump`
 function signupApi (email, password) {
   // call to the "fetch".  this is a "native" function for browsers
   // that's conveniently polyfilled in create-react-app if not available
-  return fetch(signupUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email, password }),
-  })
-   // we'll make this in a second
-    .then(response => response.json())
-    .then(json => json)
-    .catch((error) => { throw error })
+  return  true
 }
 
 export default signupWatcher

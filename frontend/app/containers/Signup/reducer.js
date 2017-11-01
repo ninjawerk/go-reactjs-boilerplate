@@ -21,18 +21,18 @@ const initialState = fromJS({
 const reducer = function signupReducer (state = initialState, action) {
   switch (action.type) {
     case SIGNUP_REQUESTING:
-      return {
+      return fromJS({
         requesting: true,
         successful: false,
         messages: [{ body: 'Signing up...', time: new Date() }],
         errors: [],
-      }
+      })
 
     // reset the state and add a body message of success!
     // remember our successful returned payload will be:
     // {"email": "of the new user", "id": "of the user"}
     case SIGNUP_SUCCESS:
-      return {
+      return fromJS({
         errors: [],
         messages: [{
           body: `Successfully created account for ${action.response.email}`,
@@ -40,14 +40,14 @@ const reducer = function signupReducer (state = initialState, action) {
         }],
         requesting: false,
         successful: true,
-      }
+      })
 
     // reset the state but with errors!
     // the error payload returned is actually far
     // more detailed, but we'll just stick with
     // the base message for now
     case SIGNUP_ERROR:
-      return {
+      return fromJS({
         errors: state.errors.concat([{
           body: action.error.toString(),
           time: new Date(),
@@ -55,7 +55,7 @@ const reducer = function signupReducer (state = initialState, action) {
         messages: [],
         requesting: false,
         successful: false,
-      }
+      })
 
     default:
       return state

@@ -3,23 +3,14 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the signup state domain
  */
-const selectSignupDomain = (state) => state.get('signup');
+const selectSignupDomain = (state) => state.get('signup').toJS()
 
-/**
- * Other specific selectors
- */
-
-
-/**
- * Default selector used by Signup
- */
-
-const makeSelectSignup = () => createSelector(
+const selectSignup = () => createSelector(
   selectSignupDomain,
-  (selectSignupDomain) => selectSignupDomain.toJS()
+  (homeState) => homeState
 );
 
-export default makeSelectSignup;
 export {
   selectSignupDomain,
+  selectSignup
 };

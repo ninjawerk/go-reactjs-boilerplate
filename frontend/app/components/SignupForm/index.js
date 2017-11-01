@@ -11,18 +11,17 @@ import PropTypes from 'prop-types';
 
 class SignupForm extends React.Component {
   static propTypes = {
+    formSubmit: PropTypes.func,
     handleSubmit: PropTypes.func,
   }
 
-  handleSubmit(e) {
-    //do stuff here
-  }
+
 
   render() {
-    const { handleSubmit} = this.props;
+    const { formSubmit,handleSubmit} = this.props;
     return (
       <div className="signup">
-        <form className="widget-form" onSubmit={handleSubmit(this.props.onSubmit)}>
+        <form className="widget-form" onSubmit={handleSubmit(formSubmit)}>
           <h1>Signup</h1>
           <label htmlFor="email">Email</label>
           <Field
