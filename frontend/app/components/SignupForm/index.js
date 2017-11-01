@@ -15,8 +15,6 @@ class SignupForm extends React.Component {
     handleSubmit: PropTypes.func,
   }
 
-
-
   render() {
     const { formSubmit,handleSubmit} = this.props;
     return (

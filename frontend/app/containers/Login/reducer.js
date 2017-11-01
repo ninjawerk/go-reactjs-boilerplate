@@ -4,20 +4,57 @@
  *
  */
 
-import { fromJS } from 'immutable';
+import {fromJS} from 'immutable';
+
 import {
-  DEFAULT_ACTION,
-} from './constants';
+  LOGIN_REQUESTING,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
+} from './constants'
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  requesting: false,
+  successful: false,
+  messages: [],
+  errors: [],
+});
 
-function loginReducer(state = initialState, action) {
+const reducer = function loginReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    // Set the requesting flag and append a message to be shown
+    case LOGIN_REQUESTING:
+      return fromJS({
+        requesting: true,
+        successful: false,
+        messages: [{body: 'Logging in...', time: new Date()}],
+        errors: [],
+      })
+
+    // Successful?  Reset the login state.
+    case LOGIN_SUCCESS:
+      return fromJS({
+        errors: [],
+        messages: [],
+        requesting: false,
+        successful: true,
+      })
+
+    // Append the error returned from our api
+    // set the success and requesting flags to false
+    case LOGIN_ERROR:
+      return fromJS({
+        errors: state.errors.concat([{
+          body: action.error.toString(),
+          time: new Date(),
+        }]),
+        messages: [],
+        requesting: false,
+        successful: false,
+      })
+
     default:
-      return state;
+      return state
   }
 }
 
-export default loginReducer;
+export default reducer
