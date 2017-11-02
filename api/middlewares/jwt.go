@@ -9,7 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/dgrijalva/jwt-go"
 	"time"
-	"github.com/BeastSanchez/go-reactjs-boilerplate/api/routes"
 )
 
 var (
@@ -104,17 +103,3 @@ func ValidateToken(tokenString string, key string) (*jwt.Token, error) {
 	return token, err
 }
 
-func HandleLogin(c *gin.Context) {
-	userId:="123"
-	username:="Beast"
-	roles:= []string{routes.RoleAdmin, routes.RoleProUser}
-
-	// do user auth here
-
-	//issue token
-	token, err := GenerateToken([]byte(SigningKey), userId,username, roles)
-	if err != nil {
-
-	}
-	c.JSON(200, token)
-}

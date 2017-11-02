@@ -6,17 +6,20 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/BeastSanchez/go-reactjs-boilerplate/api/controllers"
 	"github.com/BeastSanchez/go-reactjs-boilerplate/api/middlewares"
 )
 
-const (
-	RoleAdmin string = "admin"
-	RoleProUser string = "pro-user"
-)
-
 func InitRouter(engine *gin.Engine) {
-	engine.GET("/login",  middlewares.HandleLogin)
+	InitMiddleware(engine)
+	authController := new(controllers.AuthController)
+	engine.GET("/login",  authController.HandleLogin)
+
 	RegisterProtectedRoutes(engine)
 	RegisterPublicRoutes(engine)
 	RegisterUtilityRoutes(engine)
+}
+
+func InitMiddleware(engine *gin.Engine){
+	engine.Use(middlewares.CORSMiddleware());
 }
