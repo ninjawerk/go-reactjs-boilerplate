@@ -16,7 +16,7 @@ const initialState = fromJS({
   successful: false,
   messages: [],
   errors: [],
-})
+});
 
 const reducer = function signupReducer (state = initialState, action) {
   switch (action.type) {
@@ -26,7 +26,7 @@ const reducer = function signupReducer (state = initialState, action) {
         successful: false,
         messages: [{ body: 'Signing up...', time: new Date() }],
         errors: [],
-      })
+      });
 
     // reset the state and add a body message of success!
     // remember our successful returned payload will be:
@@ -40,7 +40,7 @@ const reducer = function signupReducer (state = initialState, action) {
         }],
         requesting: false,
         successful: true,
-      })
+      });
 
     // reset the state but with errors!
     // the error payload returned is actually far
@@ -55,11 +55,11 @@ const reducer = function signupReducer (state = initialState, action) {
         messages: [],
         requesting: false,
         successful: false,
-      })
+      });
 
     default:
       return state
   }
-}
+};
 
 export default reducer

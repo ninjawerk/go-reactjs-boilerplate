@@ -28,7 +28,7 @@ const reducer = function loginReducer(state = initialState, action) {
         successful: false,
         messages: [{body: 'Logging in...', time: new Date()}],
         errors: [],
-      })
+      });
 
     // Successful?  Reset the login state.
     case LOGIN_SUCCESS:
@@ -37,7 +37,7 @@ const reducer = function loginReducer(state = initialState, action) {
         messages: [],
         requesting: false,
         successful: true,
-      })
+      });
 
     // Append the error returned from our api
     // set the success and requesting flags to false
@@ -50,11 +50,11 @@ const reducer = function loginReducer(state = initialState, action) {
         messages: [],
         requesting: false,
         successful: false,
-      })
+      });
 
     default:
       return state
   }
-}
+};
 
 export default reducer

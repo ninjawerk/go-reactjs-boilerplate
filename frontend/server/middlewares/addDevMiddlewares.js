@@ -18,8 +18,12 @@ function createWebpackMiddleware(compiler, publicPath) {
 module.exports = function addDevMiddlewares(app, webpackConfig) {
   const compiler = webpack(webpackConfig);
   const middleware = createWebpackMiddleware(compiler, webpackConfig.output.publicPath);
-  app.use('/public', express.static(path.join(__dirname,'..') + '/../public'))
-
+  app.use('/public', express.static(path.join(__dirname,'..') + '/../public'));
+  app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
 

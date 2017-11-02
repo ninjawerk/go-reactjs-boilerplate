@@ -12,6 +12,6 @@ const signupRequest = function signupRequest ({ email, password }) {
     email,
     password,
   }
-}
+};
 
 export default signupRequest

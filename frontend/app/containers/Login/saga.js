@@ -1,9 +1,5 @@
 import {take, fork, cancel, call, put, cancelled} from 'redux-saga/effects'
 
-import {browserHistory} from 'react-router-dom'
-
-
-
 import {
   LOGIN_REQUESTING,
   LOGIN_SUCCESS,
@@ -18,25 +14,27 @@ import {
 import {
   CLIENT_UNSET,
 } from '../Client/constants'
+import {API_URL} from "../../configs";
+import { push } from 'react-router-redux';
 
 function* loginFlow(email, password) {
-  let token
+  let token;
   try {
-    token = yield call(loginApi, email, password)
-    yield put(setClient(token))
-    yield put({type: LOGIN_SUCCESS})
-    localStorage.setItem('token', JSON.stringify(token))
-    browserHistory.push('/widgets')
+    token = yield call(loginApi, email, password);
+    yield put(setClient(token));
+    yield put({type: LOGIN_SUCCESS});
+    localStorage.setItem('token', JSON.stringify(token));
+    yield put(push('/home'));
   } catch (error) {
     yield put({type: LOGIN_ERROR, error})
   } finally {
     if (yield cancelled()) {
-      browserHistory.push('/login')
+      yield put(push('/login'));
     }
   }
 }
 
-const loginUrl = `/api/Clients/login`
+const loginUrl = `${API_URL}/login`;
 
 function loginApi(email, password) {
   return fetch(loginUrl, {
@@ -54,27 +52,19 @@ function loginApi(email, password) {
 }
 
 function* logout () {
-  // dispatches the CLIENT_UNSET action
-  yield put(unsetClient())
-
+  yield put(unsetClient());
   // remove our token
-  localStorage.removeItem('token')
-
-  // redirect to the /login screen
-  browserHistory.push('/login')
+  localStorage.removeItem('token');
+  yield put(push('/login'));
 }
 
 function* loginWatcher() {
   while (true) {
-    const {email, password} = yield take(LOGIN_REQUESTING)
-
-    const task = yield fork(loginFlow, email, password)
-
-    const action = yield take([CLIENT_UNSET, LOGIN_ERROR])
-
-    if (action.type === CLIENT_UNSET) yield cancel(task)
-
-    yield call(logout)
+    const {email, password} = yield take(LOGIN_REQUESTING);
+    const task = yield fork(loginFlow, email, password);
+    const action = yield take([CLIENT_UNSET, LOGIN_ERROR]);
+    if (action.type === CLIENT_UNSET) yield cancel(task);
+    yield call(logout);
   }
 }
 

@@ -58,7 +58,7 @@ Signup.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
    signup: selectSignup(),
-})
+});
 
 
 export function mapDispatchToProps(dispatch) {

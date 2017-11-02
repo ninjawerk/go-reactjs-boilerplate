@@ -13,8 +13,7 @@ import (
 func InitRouter(engine *gin.Engine) {
 	InitMiddleware(engine)
 	authController := new(controllers.AuthController)
-	engine.GET("/login",  authController.HandleLogin)
-
+	engine.POST("/login",  authController.HandleLogin)
 	RegisterProtectedRoutes(engine)
 	RegisterPublicRoutes(engine)
 	RegisterUtilityRoutes(engine)

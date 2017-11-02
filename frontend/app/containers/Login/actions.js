@@ -16,7 +16,7 @@ const loginRequest = function loginRequest ({ email, password }) {
     email,
     password,
   }
-}
+};
 
 // Since it's the only one here
 export default loginRequest
