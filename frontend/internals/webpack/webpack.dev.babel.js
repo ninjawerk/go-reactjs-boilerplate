@@ -45,6 +45,14 @@ module.exports = require('./webpack.base.babel')({
     path.join(process.cwd(), 'app/app.js'), // Start with js/app.js
   ],
 
+  modules:[
+      {
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        use: ['style-loader', 'css-loader', 'sass-loader?url=false'],
+      }
+    ],
+
   // Don't use hashes in dev mode for better performance
   output: {
     filename: '[name].js',
