@@ -208,6 +208,7 @@
     "compression": "1.6.2",
     "cross-env": "5.0.0",
     "express": "4.15.3",
+    "font-awesome": "^4.7.0",
     "fontfaceobserver": "2.0.9",
     "fs": "0.0.1-security",
     "history": "4.6.3",
@@ -235,6 +236,7 @@
     "redux-saga": "0.15.3",
     "reselect": "3.0.1",
     "sass-loader": "^6.0.6",
+    "simple-line-icons": "^2.4.1",
     "styled-components": "2.0.0",
     "warning": "3.0.0",
     "whatwg-fetch": "2.0.3"

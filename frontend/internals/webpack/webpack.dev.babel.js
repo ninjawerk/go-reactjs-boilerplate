@@ -45,13 +45,13 @@ module.exports = require('./webpack.base.babel')({
     path.join(process.cwd(), 'app/app.js'), // Start with js/app.js
   ],
 
-  modules:[
-      {
-        test: /\.scss$/,
-        exclude: /node_modules/,
-        use: ['style-loader', 'css-loader', 'sass-loader?url=false'],
-      }
-    ],
+  modules: [
+    {
+      test: /\.scss$/,
+      exclude: /node_modules\/(?!(bootstrap\scss)\/).*/,
+      use: ['style-loader', 'css-loader', 'sass-loader?url=false'],
+    },
+  ],
 
   // Don't use hashes in dev mode for better performance
   output: {
@@ -82,7 +82,9 @@ module.exports = require('./webpack.base.babel')({
  */
 function dependencyHandlers() {
   // Don't do anything during the DLL Build step
-  if (process.env.BUILDING_DLL) { return []; }
+  if (process.env.BUILDING_DLL) {
+    return [];
+  }
 
   // If the package.json does not have a dllPlugin property, use the CommonsChunkPlugin
   if (!dllPlugin) {

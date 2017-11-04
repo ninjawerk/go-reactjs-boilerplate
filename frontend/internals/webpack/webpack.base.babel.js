@@ -20,6 +20,7 @@ module.exports = (options) => ({
   }, options.output), // Merge with env dependent settings
   module: {
     rules: [
+
       {
         test: /\.js$/, // Transform all .js files required somewhere with Babel
         exclude: /node_modules/,
@@ -42,6 +43,7 @@ module.exports = (options) => ({
         include: /node_modules/,
         use: ['style-loader', 'css-loader'],
       },
+
       {
         test: /\.(eot|svg|otf|ttf|woff|woff2)$/,
         use: 'file-loader',
@@ -81,6 +83,7 @@ module.exports = (options) => ({
           },
         },
       },
+
       ...options.modules
     ],
   },
