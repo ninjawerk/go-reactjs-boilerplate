@@ -19,7 +19,8 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     return (
       <div className="row h-100 justify-content-center align-items-center bg-light">
         <div>
-          <img src="/public/img/goreact.png"/>
+          <h1 className="text-center">Secure Page</h1>
+          <h4 className="text-center">this is a sample secure page</h4>
         </div>
       </div>
     );
