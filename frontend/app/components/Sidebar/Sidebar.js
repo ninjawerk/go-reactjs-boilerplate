@@ -7,8 +7,14 @@ import SidebarFooter from './../SidebarFooter';
 import SidebarForm from './../SidebarForm';
 import SidebarHeader from './../SidebarHeader';
 import SidebarMinimizer from './../SidebarMinimizer';
+import {checkAuthentication} from "../../utils/checkAuth";
+
 
 class Sidebar extends Component {
+  constructor() {
+    super();
+
+  }
 
   handleClick(e) {
     e.preventDefault();
@@ -18,7 +24,6 @@ class Sidebar extends Component {
   activeRoute(routeName, props) {
     // return this.props.location.pathname.indexOf(routeName) > -1 ? 'nav-item nav-dropdown open' : 'nav-item nav-dropdown';
     return props.location.pathname.indexOf(routeName) > -1 ? 'nav-item nav-dropdown open' : 'nav-item nav-dropdown';
-
   }
 
   // todo Sidebar nav secondLevel
@@ -28,7 +33,6 @@ class Sidebar extends Component {
 
 
   render() {
-
     const props = this.props;
     const activeRoute = this.activeRoute;
     const handleClick = this.handleClick;
@@ -36,17 +40,19 @@ class Sidebar extends Component {
     // badge addon to NavItem
     const badge = (badge) => {
       if (badge) {
-        const classes = classNames( badge.class );
+        const classes = classNames(badge.class);
         return (<Badge className={ classes } color={ badge.variant }>{ badge.text }</Badge>)
       }
     };
 
     // simple wrapper for nav-title item
-    const wrapper = item => { return (item.wrapper && item.wrapper.element ? (React.createElement(item.wrapper.element, item.wrapper.attributes, item.name)): item.name ) };
+    const wrapper = item => {
+      return (item.wrapper && item.wrapper.element ? (React.createElement(item.wrapper.element, item.wrapper.attributes, item.name)) : item.name )
+    };
 
     // nav list section title
-    const title =  (title, key) => {
-      const classes = classNames( "nav-title", title.class);
+    const title = (title, key) => {
+      const classes = classNames("nav-title", title.class);
       return (<li key={key} className={ classes }>{wrapper(title)} </li>);
     };
 
@@ -55,21 +61,21 @@ class Sidebar extends Component {
 
     // nav item with nav link
     const navItem = (item, key) => {
-      const classes = classNames( item.class );
+      const classes = classNames(item.class);
       const isExternal = (url) => {
         return url.substring(0, 4) === 'http' ? true : false
-      }
-      const variant = classNames( "nav-link", item.variant ? `nav-link-${item.variant}` : "");
+      };
+      const variant = classNames("nav-link", item.variant ? `nav-link-${item.variant}` : "");
       return (
         <NavItem key={key} className={classes}>
           { isExternal(item.url) ?
-              <RsNavLink href={item.url} className={variant} active>
-                <i className={item.icon}></i>{item.name}{badge(item.badge)}
-              </RsNavLink>
+            <RsNavLink href={item.url} className={variant} active>
+              <i className={item.icon}/>{item.name}{badge(item.badge)}
+            </RsNavLink>
             :
-              <NavLink to={item.url} className={variant} activeClassName="active">
-                <i className={item.icon}></i>{item.name}{badge(item.badge)}
-              </NavLink>
+            <NavLink to={item.url} className={variant} activeClassName="active">
+              <i className={item.icon}/>{item.name}{badge(item.badge)}
+            </NavLink>
           }
         </NavItem>
       )
@@ -89,13 +95,13 @@ class Sidebar extends Component {
     // nav link
     const navLink = (item, idx) =>
       item.title ? title(item, idx) :
-      item.divider ? divider(item, idx) :
-      item.children ? navDropdown(item, idx)
-                    : navItem(item, idx) ;
+        item.divider ? divider(item, idx) :
+          item.children ? navDropdown(item, idx)
+            : navItem(item, idx);
 
     // nav list
     const navList = (items) => {
-      return items.map( (item, index) => navLink(item, index) );
+      return items.map((item, index) => navLink(item, index));
     };
 
     // sidebar-nav root
