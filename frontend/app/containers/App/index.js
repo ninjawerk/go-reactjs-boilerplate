@@ -12,22 +12,44 @@
  */
 
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
+import SecurePage from 'containers/SecurePage/Loadable';
 import SignUp from 'containers/SignUp/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Login from "containers/Login/Loadable";
+import {Container} from 'reactstrap';
+import Header from '../../components/Header/';
+import Sidebar from '../../components/Sidebar/';
+import Aside from '../../components/Aside/';
+import Footer from '../../components/Footer/';
+import {IfUser} from "utils/checkAuth";
 
-export default function App() {
+export default function App(props, context) {
   return (
-    <div>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/login" component={Login} />
-        <Route component={NotFoundPage} />
-      </Switch>
-    </div>
-  );
+    <div className="app">
+      <Header />
+      <div className="app-body">
+        <IfUser>
+          <Sidebar {...props}/>
+        </IfUser>
+
+        <main className="main">
+          <Container fluid className="h-100">
+            <Switch>
+              <Route exact path="/" component={HomePage}/>
+              <Route exact path="/secure" component={SecurePage}/>
+              <Route exact path="/signup" component={SignUp}/>
+              <Route exact path="/login" component={Login}/>
+              <Route component={NotFoundPage}/>
+            </Switch>
+          </Container>
+        </main>
+        <IfUser>
+          <Aside />
+        </IfUser>
+      </div>
+      <Footer />
+    </div>);
 }
