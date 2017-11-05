@@ -1,22 +1,30 @@
 import {setClient} from 'containers/Client/actions'
 import * as React from "react";
 
-export function IfUser(context) {
-
+/*
+If there is more than 1 child, the elements will be wrapped in a fragment
+else it will return the single element.
+ */
+export function IfUser(props,context) {
   if (isAuthorized(context)) {
-    return <fragment>{this.props.children}</fragment>;
+    if(props.children.length>1){
+      return <fragment>{props.children}</fragment>;
+    }else {
+      return props.children;
+    }
   }
   return <empty></empty>
-
 };
 
-export function IfGuest(context) {
-
-  if (isAuthorized(context)) {
-    return <fragment>{this.props.children}</fragment>;
+export function IfGuest(props,context) {
+  if (!isAuthorized(context)) {
+    if(props.children.length>1){
+      return <fragment>{props.children}</fragment>;
+    }else {
+      return props.children;
+    }
   }
   return <empty></empty>
-
 };
 
 export function isAuthorized(context) {
