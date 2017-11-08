@@ -1,5 +1,5 @@
 /**
- * Created by BeastSanchez on 11/2/2017
+ * Created by VoidArtanis on 11/2/2017
  */
 
 package shared

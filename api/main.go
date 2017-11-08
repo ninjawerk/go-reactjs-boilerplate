@@ -1,13 +1,13 @@
 /**
- * Created by BeastSanchez on 10/22/2017
+ * Created by VoidArtanis on 10/22/2017
  */
 
 package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/BeastSanchez/go-reactjs-boilerplate/api/routes"
-	"github.com/BeastSanchez/go-reactjs-boilerplate/api/shared"
+	"github.com/VoidArtanis/go-reactjs-boilerplate/api/routes"
+	"github.com/VoidArtanis/go-reactjs-boilerplate/api/shared"
 )
 
 var DB = make(map[string]string)

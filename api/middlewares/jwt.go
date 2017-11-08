@@ -1,5 +1,5 @@
 /**
- * Created by BeastSanchez on 10/22/2017
+ * Created by VoidArtanis on 10/22/2017
  */
 
 package middlewares
@@ -83,7 +83,7 @@ func GenerateToken(key []byte, userId string, username string, roles []string) (
 	claims := make(jwt.MapClaims)
 	claims["user_id"] = userId
 	claims["username"] = username
-	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
+	claims["exp"]=time.Now().Add(time.Hour * 72).UnixNano() / int64(time.Millisecond)
 
 	//Set user roles
 	claims["roles"] = roles

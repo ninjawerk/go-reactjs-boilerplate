@@ -1,13 +1,13 @@
 /**
- * Created by BeastSanchez on 11/2/2017
+ * Created by VoidArtanis on 11/2/2017
  */
 
 package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/BeastSanchez/go-reactjs-boilerplate/api/middlewares"
-	"github.com/BeastSanchez/go-reactjs-boilerplate/api/shared"
+	"github.com/VoidArtanis/go-reactjs-boilerplate/api/middlewares"
+	"github.com/VoidArtanis/go-reactjs-boilerplate/api/shared"
 )
 
 type AuthController struct{}
@@ -21,9 +21,9 @@ func (this AuthController)HandleLogin(c *gin.Context) {
 	// do user auth here
 
 	//issue token
-	token, err := middlewares.GenerateToken([]byte(middlewares.SigningKey), userId,username, roles)
-	if err != nil {
+	token, _ := middlewares.GenerateToken([]byte(middlewares.SigningKey), userId,username, roles)
 
-	}
-	c.JSON(200, token)
+	c.JSON(200, gin.H{
+		"token": token,
+	})
 }
