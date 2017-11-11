@@ -17,29 +17,19 @@ class LoginForm extends React.Component { // eslint-disable-line react/prefer-st
   render() {
     const { formSubmit,handleSubmit} = this.props;
     return (
-      <form className="widget-form" onSubmit={handleSubmit(formSubmit)}>
-        <h1>LOGIN</h1>
-        <label htmlFor="email">Email</label>
-        {/*
-         Our Redux Form Field components that bind email and password
-         to our Redux state's form -> login piece of state.
-         */}
-        <Field
-          name="email"
-          type="text"
-          id="email"
-          className="email"
-          component="input"
-        />
-        <label htmlFor="password">Password</label>
-        <Field
-          name="password"
-          type="password"
-          id="password"
-          className="password"
-          component="input"
-        />
-        <button action="submit">LOGIN</button>
+      <form className="widget-form w-100" onSubmit={handleSubmit(formSubmit)}>
+        <h1 className="text-center">LOGIN</h1>
+        <div className="form-group">
+          <label htmlFor="email">Email address</label>
+          <Field name="email" type="email" className="form-control" id="email" component="input" aria-describedby="emailHelp" placeholder="Enter email"/>
+         </div>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <Field name="password" type="password" className="form-control" id="password" component="input" aria-describedby="emailHelp" placeholder="Enter email"/>
+         </div>
+        <div className="w-100 justify-content-center text-center mt-4">
+        <button action="submit" className="btn btn-outline-info btn-lg ">LOGIN</button>
+        </div>
       </form>
     );
   }

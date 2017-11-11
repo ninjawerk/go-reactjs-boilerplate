@@ -17,7 +17,7 @@ import createHistory from 'history/createBrowserHistory';
 
 
 // Import root app
-import App from 'containers/App';
+import AppContainer from 'containers/App';
 
 // Import Language Provider
 import LanguageProvider from 'containers/LanguageProvider';
@@ -41,9 +41,11 @@ import 'font-awesome/css/font-awesome.min.css';
 import 'simple-line-icons/css/simple-line-icons.css';
 import './styles/scss/style.scss';
 import './styles/scss/core/_dropdown-menu-right.scss'
+import 'react-toastify/dist/ReactToastify.min.css'
+
 // Create redux store with history
 const initialState = {};
-const history = createHistory();
+export const history = createHistory();
 export const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 
@@ -52,7 +54,7 @@ const render = (messages) => {
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <ConnectedRouter history={history}>
-          <App store={store} />
+          <AppContainer store={store} />
         </ConnectedRouter>
       </LanguageProvider>
     </Provider>,

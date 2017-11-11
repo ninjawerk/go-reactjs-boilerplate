@@ -4,7 +4,7 @@
  *
  */
 
-import {fromJS} from 'immutable';
+import {fromJS ,Map } from 'immutable';
 
 import {
   LOGIN_REQUESTING,
@@ -42,8 +42,9 @@ const reducer = function loginReducer(state = initialState, action) {
     // Append the error returned from our api
     // set the success and requesting flags to false
     case LOGIN_ERROR:
+
       return fromJS({
-        errors: state.errors.concat([{
+        errors: state.get('errors').concat([{
           body: action.error.toString(),
           time: new Date(),
         }]),

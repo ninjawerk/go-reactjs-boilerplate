@@ -18,42 +18,74 @@ import saga from './saga';
 import loginRequest from './actions'
 import {Link} from "react-router-dom";
 import LoginForm from "components/LoginForm/index";
+import IfGuest from "../App/IfGuest";
+import {makeSelectClient} from "../App/selectors";
+import {push} from 'react-router-redux';
+import {isAuthorized} from "../../utils/checkAuth";
 
-export class Login extends React.Component { // eslint-disable-line react/prefer-stateless-function
+class Login extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  componentWillMount() {
+    const {client, dispatchPush} = this.props;
+    if (isAuthorized(this.context) && client) {
+      dispatchPush('/');
+    }
+  }
+
+  showMessages(msgs) {
+    return (
+      <div>
+        {msgs.map(function (obj, key) {
+          return (<p key={key}>{obj.body}</p>)
+        })}
+      </div>
+    );
+  }
+
   render() {
-    console.log(this.props.login)
     const {
-      handleSubmit, // remember, Redux Form injects this into our props
+      handleSubmit,
+
       login: {
         requesting,
         successful,
         messages,
         errors,
       },
-    } = this.props
+    } = this.props;
     return (
-      <div className="login">
-        <LoginForm formSubmit={handleSubmit}/>
-        <div className="auth-messages">
-          {/* As in the signup, we're just using the message and error helpers */}
-          {!requesting && !!errors.length && (
-            <Errors message="Failure to login due to:" errors={errors}/>
-          )}
-          {!requesting && !!messages.length && (
-            <Messages messages={messages}/>
-          )}
-          {requesting && <div>Logging in...</div>}
-          {!requesting && !successful && (
-            <Link to="/signup">Need to Signup? Click Here »</Link>
-          )}
+
+      <div className="row h-100 justify-content-center align-items-center">
+        <div className="col-md-3">
+          <LoginForm formSubmit={handleSubmit}/>
+
+          <hr className="mt-5"/>
+          <div className="text-center">
+            {/* As in the signup, we're just using the message and error helpers */}
+            {!requesting && !!errors.length && (
+              <div >Failure to login due to: {this.showMessages(errors)}</div>
+            )}
+            {!requesting && !!messages.length && (
+              <div >{this.showMessages(messages)}</div>
+            )}
+            {requesting && <div>Logging in...</div>}
+            {!requesting && !successful && (
+              <Link to="/signup" className="btn btn-simple">Need to Signup? Click Here</Link>
+            )}
+          </div>
         </div>
       </div>
+
     );
+  }
+
+  static contextTypes = {
+    store: PropTypes.object.isRequired,
   }
 }
 
 Login.propTypes = {
   handleSubmit: PropTypes.func,
+
   loginRequest: PropTypes.func,
   login: PropTypes.shape({
     requesting: PropTypes.bool,
@@ -65,23 +97,25 @@ Login.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   login: makeSelectLogin(),
+  client: makeSelectClient(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    loginRequest,
     handleSubmit: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loginRequest({
-        email:evt.get('email'),
+        email: evt.get('email'),
         password: evt.get('password')
       }));
+    },
+    dispatchPush: (url) => {
+      dispatch(push(url));
     },
   };
 }
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
 const withReducer = injectReducer({key: 'login', reducer});
 const withSaga = injectSaga({key: 'login', saga});
 

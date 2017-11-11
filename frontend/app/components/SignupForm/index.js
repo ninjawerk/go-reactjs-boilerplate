@@ -13,33 +13,29 @@ class SignupForm extends React.Component {
   static propTypes = {
     formSubmit: PropTypes.func,
     handleSubmit: PropTypes.func,
-  }
+  };
 
   render() {
     const { formSubmit,handleSubmit} = this.props;
     return (
       <div className="signup">
-        <form className="widget-form" onSubmit={handleSubmit(formSubmit)}>
-          <h1>Signup</h1>
-          <label htmlFor="email">Email</label>
-          <Field
-            name="email"
-            type="text"
-            id="email"
-            className="email"
-            label="Email"
-            component="input"
-          />
-          <label htmlFor="password">Password</label>
-          <Field
-            name="password"
-            type="password"
-            id="password"
-            className="password"
-            label="Password"
-            component="input"
-          />
-          <button action="submit">SIGNUP</button>
+        <form className="widget-form w-100" onSubmit={handleSubmit(formSubmit)}>
+          <h1 className="text-center">Sign Up</h1>
+          <div className="form-group">
+            <label htmlFor="email">Email address</label>
+            <Field name="email" type="email" className="form-control" id="email" component="input" aria-describedby="emailHelp" placeholder="Enter email"/>
+          </div>
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <Field name="username" type="text" className="form-control" id="username" component="input" aria-describedby="usernameHelp" placeholder="Enter username"/>
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <Field name="password" type="password" className="form-control" id="password" component="input" aria-describedby="emailHelp" placeholder="Enter password"/>
+          </div>
+          <div className="w-100 justify-content-center text-center mt-4">
+            <button action="submit" className="btn btn-outline-info btn-lg ">LOGIN</button>
+          </div>
         </form>
       </div>
     )

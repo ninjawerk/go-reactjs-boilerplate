@@ -35,7 +35,7 @@ const reducer = function signupReducer (state = initialState, action) {
       return fromJS({
         errors: [],
         messages: [{
-          body: `Successfully created account for ${action.response.email}`,
+          body: `Successfully created account`,
           time: new Date(),
         }],
         requesting: false,

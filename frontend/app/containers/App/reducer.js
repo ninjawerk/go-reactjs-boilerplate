@@ -6,8 +6,8 @@
 
 import { CLIENT_SET, CLIENT_UNSET } from './constants'
 import { fromJS } from 'immutable'
-
-const initialSate = fromJS({
+import * as jwtDecode from 'jwt-decode';
+const initialSate =fromJS({
   id: null,
   token: null,
 });
@@ -15,12 +15,14 @@ const initialSate = fromJS({
 const reducer = function clientReducer (state = initialSate, action) {
   switch (action.type) {
     case CLIENT_SET:
+      const tokenData = jwtDecode(action.token);
       return fromJS({
-        id: action.token.userId,
         token: action.token,
+        data: tokenData
       });
 
     case CLIENT_UNSET:
+
       return fromJS({
         id: null,
         token: null,

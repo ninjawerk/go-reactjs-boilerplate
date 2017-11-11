@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/dgrijalva/jwt-go"
 	"time"
+	"github.com/VoidArtanis/go-reactjs-boilerplate/api/models"
 )
 
 var (
@@ -74,8 +75,15 @@ func contains(slice []string, item string) bool {
 	return ok
 }
 
-func GenerateToken(key []byte, userId string, username string, roles []string) (string, error) {
+func GenerateToken(key []byte, user models.User) (string, error) {
+	userId:=user.ID
+	username:=user.Username
+	email:=user.Email
 
+	roles := []string{}
+	for _, role := range user.Roles {
+		roles = append(roles, role.Name)
+	}
 	//new token
 	token := jwt.New(jwt.SigningMethodHS256)
 
@@ -83,6 +91,7 @@ func GenerateToken(key []byte, userId string, username string, roles []string) (
 	claims := make(jwt.MapClaims)
 	claims["user_id"] = userId
 	claims["username"] = username
+	claims["email"] = email
 	claims["exp"]=time.Now().Add(time.Hour * 72).UnixNano() / int64(time.Millisecond)
 
 	//Set user roles

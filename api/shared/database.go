@@ -17,12 +17,12 @@ var err error
 /*
 dbType can be 'MySql', 'Postrges', ''
  */
-func Init() {
+func DbInit() {
 	////MySQL
 	//db, err = gorm.Open("mysql", "user:password@/dbname?charset=utf8&parseTime=True&loc=Local")
 
 	//PostgreSQL
-	db, err = gorm.Open("postgres", "host=myhost user=gorm dbname=gorm sslmode=disable password=mypassword")
+	db, err = gorm.Open("postgres", "host=localhost user=postgres dbname=gorm sslmode=disable password=")
 
 	////SQLite3
 	//db, err = gorm.Open("sqlite3", "/tmp/gorm.db")
@@ -33,7 +33,7 @@ func Init() {
 	if err != nil {
 		fmt.Println(err)
 	}
-
+	fmt.Println("Db Open Done!")
 	//db.AutoMigrate(&models.Person{})
 }
 

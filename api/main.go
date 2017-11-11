@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/VoidArtanis/go-reactjs-boilerplate/api/routes"
 	"github.com/VoidArtanis/go-reactjs-boilerplate/api/shared"
+	"github.com/VoidArtanis/go-reactjs-boilerplate/api/models"
 )
 
 var DB = make(map[string]string)
@@ -15,7 +16,8 @@ var DB = make(map[string]string)
 func main() {
 
 	//Db Connect and Close
-	shared.Init()
+	shared.DbInit()
+	models.MigrateModels()
 	defer shared.CloseDb()
 
 	//Init Gin

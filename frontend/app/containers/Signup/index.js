@@ -21,9 +21,17 @@ import signupRequest from './actions'
 
 class Signup extends Component {
 
+  showMessages(msgs) {
+    return (
+      <div>
+        {msgs.map(function (obj, key) {
+          return (<p key={key}>{obj.body}</p>)
+        })}
+      </div>
+    );
+  }
 
   render() {
-    console.log(this.props.signup)
     const {
       handleSubmit,
       signup: {
@@ -32,15 +40,28 @@ class Signup extends Component {
         messages,
         errors,
       },
-    } = this.props
+    } = this.props;
     return (
-      <div>
+    <div className="row h-100 justify-content-center align-items-center">
+      <div className="col-md-3">
         <SignupForm formSubmit={handleSubmit}/>
-        <div className="auth-messages">
-           <p>errors: {errors.length}</p>
-          <p>messages: {messages.length}</p>
+        <hr className="mt-5"/>
+        <div className="text-center" >
+          {/* As in the signup, we're just using the message and error helpers */}
+          {!requesting && !!errors.length && (
+            <div >Failed to register due to: {this.showMessages(errors)}</div>
+          )}
+          {!requesting && !!messages.length && (
+            <div >{this.showMessages(messages)}</div>
+          )}
+          {requesting && <div>Please wait...</div>}
+          {!requesting && !successful && (
+            <Link to="/login" className="btn btn-simple">Need to Login? Click Here</Link>
+          )}
         </div>
       </div>
+    </div>
+
     );
   }
 }
@@ -63,12 +84,12 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
-    signupRequest,
     handleSubmit: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(signupRequest({
         email:evt.get('email'),
-        password: evt.get('password')
+        password: evt.get('password'),
+        username: evt.get('username')
       }));
     },
   };

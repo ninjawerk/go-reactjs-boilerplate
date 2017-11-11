@@ -13,16 +13,19 @@ import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import messages from './messages';
 import {Button} from 'reactstrap';
+import IfUser from "../App/IfUser";
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div className="row h-100 justify-content-center align-items-center bg-light">
-        <div>
-          <h1 className="text-center">Secure Page</h1>
-          <h4 className="text-center">this is a sample secure page</h4>
+      <IfUser redirect='true'>
+        <div className="row h-100 justify-content-center align-items-center bg-light">
+          <div>
+            <h1 className="text-center">Secure Page</h1>
+            <h4 className="text-center">this is a sample secure page</h4>
+          </div>
         </div>
-      </div>
+      </IfUser>
     );
   }
 }

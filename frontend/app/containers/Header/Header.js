@@ -8,8 +8,11 @@ import {
   Badge
 } from 'reactstrap';
 import UserDropDown from "./UserDropDown";
-import {IfUser, IfGuest} from "../../utils/checkAuth";
+
 import {Link} from "react-router-dom";
+import IfGuest from "../App/IfGuest";
+import IfUser from "../App/IfUser";
+
 
 class Header extends Component {
 
@@ -35,7 +38,9 @@ class Header extends Component {
 
   render() {
     return (
+
       <header className="app-header navbar">
+
         <NavbarToggler className="d-lg-none" onClick={this.mobileSidebarToggle}>
           <span className="navbar-toggler-icon"></span>
         </NavbarToggler>
@@ -45,6 +50,8 @@ class Header extends Component {
           <NavbarToggler className="d-md-down-none mr-auto" onClick={this.sidebarToggle}>
             <span className="navbar-toggler-icon"></span>
           </NavbarToggler>
+        </IfUser>
+        <IfUser>
           <Nav className="ml-auto" navbar>
             <NavItem className="d-md-down-none">
               <NavLink href="#"><i className="icon-bell"></i><Badge pill color="danger">5</Badge></NavLink>
@@ -63,8 +70,7 @@ class Header extends Component {
             <span className="navbar-toggler-icon"></span>
           </NavbarToggler>
         </IfUser>
-
-        <IfGuest >
+        <IfGuest>
           <div className="ml-auto">
             <Link to="/signup" className="mr-1 btn btn-simple  text-uppercase">Register</Link>
             <Link to="/login" className="mr-4 btn btn-simple  text-uppercase">Login</Link>

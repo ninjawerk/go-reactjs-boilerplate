@@ -1,87 +1,28 @@
-import {setClient} from 'containers/Client/actions'
+import {setClient} from 'containers/App/actions'
 import * as React from "react";
 
-/*
-If there is more than 1 child, the elements will be wrapped in a fragment
-else it will return the single element.
- */
-export function IfUser(props,context) {
-  if (isAuthorized(context)) {
-    if(props.children.length>1){
-      return <fragment>{props.children}</fragment>;
-    }else {
-      return props.children;
-    }
-  }
-  return <empty></empty>
-};
-
-export function IfGuest(props,context) {
-  if (!isAuthorized(context)) {
-    if(props.children.length>1){
-      return <fragment>{props.children}</fragment>;
-    }else {
-      return props.children;
-    }
-  }
-  return <empty></empty>
-};
 
 export function isAuthorized(context) {
   const store = context.store;
   //grab the token from localstorage
-  const storedToken = localStorage.getItem('token');
-  if (storedToken) {
-    const token = JSON.parse(storedToken);
-
-    // time of the token vs the ttl (time to live) seconds
-    const createdDate = new Date(token.created);
-    const created = Math.round(createdDate.getTime() / 1000);
-    const ttl = 1209600;
-    const expiry = created + ttl;
-
-    // if the token has expired return false
-    if (created > expiry) return false;
-
-    // otherwise, dispatch the token
-    store.dispatch(setClient(token));
-    return true
+  const stateToken = store.getState().getIn(['client', 'token']);
+  if (!stateToken) {
+      return false;
   }
-
-  return false
+  else {
+    //from state
+    const stateTokenData = store.getState().getIn(['client', 'data']);
+    return !hasTokenExpired(stateTokenData);
+  }
+  return false;
 }
 
-export function checkIndexAuthorization({dispatch}) {
-  return (nextState, replace, next) => {
-    if (checkAuthorization(dispatch)) {
-      replace('widgets');
-      return next()
-    }
-    // Otherwise let's take them to login!
-    replace('login');
-    return next()
-  }
+export function hasTokenExpired(token) {
+  const now = new Date();
+  const expiry = new Date(token.exp);
+  return now > expiry;
 }
 
-export function checkWidgetAuthorization({dispatch, getState}) {
-
-  return (nextState, replace, next) => {
-    console.log(dispatch)
-    console.log(getState)
-    // reference to the `client` piece of state
-    const client = getState().client;
-
-    // is it defined and does it have a token? good, go ahead to widgets
-    if (client && client.token) return next();
-
-    // not set yet?  Let's try and set it and if so, go ahead to widgets
-    if (checkAuthorization(dispatch)) return next();
-
-    //back to login ya go.
-    replace('login');
-    return next()
-  }
-}
 
 export function checkAuthentication(context) {
   const {store, router: {history, route}} = context;

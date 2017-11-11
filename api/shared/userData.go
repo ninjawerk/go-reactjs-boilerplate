@@ -7,4 +7,5 @@ package shared
 const (
 	RoleAdmin string = "admin"
 	RoleProUser string = "pro-user"
+	RoleUser string = "user"
 )

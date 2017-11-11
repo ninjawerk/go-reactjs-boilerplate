@@ -12,14 +12,5 @@ type User struct {
 	Password string
 	Email    string
 	Avatar   string
-}
-
-func (this User)Update() (bool, error) {
-	return false, nil
-}
-func (this User)Create() (bool, error) {
-	return false, nil
-}
-func (this User)Delete() (bool, error) {
-	return false, nil
+	Roles []UserRole `gorm:"many2many:user_roles_map;"`
 }
