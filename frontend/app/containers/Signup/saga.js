@@ -5,20 +5,10 @@ import {
   SIGNUP_SUCCESS,
   SIGNUP_ERROR, v
 } from './constants'
-import {API_URL} from "../../configs";
+import {API_URL} from "configs";
 import {push} from 'react-router-redux';
-import {addToast} from "../Toastr/actions";
-import {TOAST_DEFAULT, TOAST_INFO, TOAST_SUCCESS} from "../Toastr/constants";
-// This will be run when the SIGNUP_REQUESTING
-// Action is found by the watcher
-
-export   function pause(delay) {
-  return new Promise(resolve => {
-    setTimeout(_ => {
-      resolve()
-    }, delay.millis)
-  })
-}
+import {addToast} from "containers/Toastr/actions";
+import {TOAST_SUCCESS} from "containers/Toastr/constants";
 
 function* signupFlow(action) {
   try {
@@ -26,8 +16,6 @@ function* signupFlow(action) {
     const response = yield call(signupApi, email, password, username);
     yield put({type: SIGNUP_SUCCESS, response});
     yield put( addToast({message: 'Registration was Successful!', toastType: TOAST_SUCCESS}));
-    yield call(pause,{millis:2000})
-    yield put( addToast({message: 'Yolo!', toastType: TOAST_INFO}));
     yield put(push('/login'));
   } catch (error) {
     yield put({type: SIGNUP_ERROR, error})

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {
-  Badge,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
@@ -9,8 +8,8 @@ import {
 import {createStructuredSelector} from "reselect";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {unsetClient} from "../App/actions";
-import {makeSelectClient} from "../App/selectors";
+import {unsetClient} from "containers/App/actions";
+import {makeSelectClient} from "containers/App/selectors";
 
 class UserDropDown extends Component {
 
@@ -29,10 +28,6 @@ class UserDropDown extends Component {
     });
   }
 
-  dropAccnt() {
-
-  }
-
   render() {
     const {client, handleLogout} = this.props;
     return (
@@ -48,7 +43,6 @@ class UserDropDown extends Component {
     );
   }
 }
-
 
 function mapDispatchToProps(dispatch) {
   return {

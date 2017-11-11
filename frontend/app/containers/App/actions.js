@@ -1,6 +1,6 @@
 /*
  *
- * Client actions
+ * App actions
  *
  */
 

@@ -14,7 +14,7 @@ import {
 import {
   CLIENT_UNSET,
 } from 'containers/App/constants'
-import {API_URL} from "../../configs";
+import {API_URL} from "configs";
 import {push} from 'react-router-redux';
 
 function* loginFlow(email, password) {

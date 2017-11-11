@@ -20,19 +20,19 @@ import SignUp from 'containers/SignUp/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Login from "containers/Login/Loadable";
 import {Container} from 'reactstrap';
-import Header from '../../containers/Header/';
-import Sidebar from '../../components/Sidebar/';
-import Aside from '../../components/Aside/';
-import Footer from '../../components/Footer/';
+import Header from 'components/Header/';
+import Sidebar from 'components/Sidebar/';
+import Aside from 'components/Aside/';
+import Footer from 'components/Footer/';
 import {compose} from "redux";
 import reducer from './reducer';
-import injectReducer from "../../utils/injectReducer";
+import injectReducer from "utils/injectReducer";
 import IfUser from "./IfUser";
 import PropTypes from 'prop-types';
 import * as jwtDecode from 'jwt-decode';
-import {hasTokenExpired} from "../../utils/checkAuth";
+import {hasTokenExpired} from "utils/checkAuth";
 import {setClient} from "./actions";
-import Toastr from "../Toastr";
+
 class AppContainer extends React.Component {
   componentWillMount() {
     const store = this.context.store;

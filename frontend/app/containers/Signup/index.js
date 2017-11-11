@@ -15,7 +15,7 @@ import  {selectSignup, selectSignupDomain} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import {Component} from "react/lib/ReactBaseClasses";
-import SignupForm from "../../components/SignupForm";
+import SignupForm from "components/SignupForm";
 import {Link} from 'react-router-dom';
 import signupRequest from './actions'
 

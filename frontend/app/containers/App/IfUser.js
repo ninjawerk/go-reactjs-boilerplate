@@ -1,12 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {
-  Badge,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  NavDropdown
-} from 'reactstrap';
 import {createStructuredSelector} from "reselect";
 import {connect} from "react-redux";
 import {compose} from "redux";

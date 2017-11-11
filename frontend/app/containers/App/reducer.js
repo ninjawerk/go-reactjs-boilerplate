@@ -1,6 +1,6 @@
 /*
  *
- * Client reducer
+ * App reducer
  *
  */
 

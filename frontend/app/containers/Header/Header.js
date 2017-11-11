@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {
   Nav,
-  NavbarBrand,
   NavbarToggler,
   NavItem,
   NavLink,
@@ -10,8 +9,8 @@ import {
 import UserDropDown from "./UserDropDown";
 
 import {Link} from "react-router-dom";
-import IfGuest from "../App/IfGuest";
-import IfUser from "../App/IfUser";
+import IfGuest from "containers/App/IfGuest";
+import IfUser from "containers/App/IfUser";
 
 
 class Header extends Component {
@@ -19,11 +18,6 @@ class Header extends Component {
   sidebarToggle(e) {
     e.preventDefault();
     document.body.classList.toggle('sidebar-hidden');
-  }
-
-  sidebarMinimize(e) {
-    e.preventDefault();
-    document.body.classList.toggle('sidebar-minimized');
   }
 
   mobileSidebarToggle(e) {
@@ -38,14 +32,11 @@ class Header extends Component {
 
   render() {
     return (
-
       <header className="app-header navbar">
-
         <NavbarToggler className="d-lg-none" onClick={this.mobileSidebarToggle}>
           <span className="navbar-toggler-icon"></span>
         </NavbarToggler>
         <Link to="/" className=" navbar-brand"/>
-
         <IfUser>
           <NavbarToggler className="d-md-down-none mr-auto" onClick={this.sidebarToggle}>
             <span className="navbar-toggler-icon"></span>

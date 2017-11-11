@@ -19,9 +19,9 @@ import loginRequest from './actions'
 import {Link} from "react-router-dom";
 import LoginForm from "components/LoginForm/index";
 import IfGuest from "../App/IfGuest";
-import {makeSelectClient} from "../App/selectors";
+import {makeSelectClient} from "containers/App/selectors";
 import {push} from 'react-router-redux';
-import {isAuthorized} from "../../utils/checkAuth";
+import {isAuthorized} from " utils/checkAuth";
 
 class Login extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
@@ -30,7 +30,6 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
       dispatchPush('/');
     }
   }
-
   showMessages(msgs) {
     return (
       <div>
@@ -40,7 +39,6 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
       </div>
     );
   }
-
   render() {
     const {
       handleSubmit,
@@ -57,7 +55,6 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
       <div className="row h-100 justify-content-center align-items-center">
         <div className="col-md-3">
           <LoginForm formSubmit={handleSubmit}/>
-
           <hr className="mt-5"/>
           <div className="text-center">
             {/* As in the signup, we're just using the message and error helpers */}
